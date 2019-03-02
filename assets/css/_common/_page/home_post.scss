@@ -6,13 +6,16 @@
         .avatar {
             img {
                 width: 96px;
+                min-height: 96px;
             }
         }
     }
 
     .post {
-        margin-bottom: 4em;
-        border-bottom: 1px dashed #ddd;
+        margin-bottom: 2em;
+        &:not(:last-of-type){
+            border-bottom: 1px dashed #ddd;
+        }
 
         .post-content {
             padding-top: .5em;

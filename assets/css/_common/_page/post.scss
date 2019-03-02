@@ -92,6 +92,18 @@
             word-wrap: break-word;
         }
 
+        pre.codewithlang:before {
+            content: attr(data-lang);
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #ccc;
+            text-align: right;
+            font-size: 1em;
+            padding: 5px 10px 0;
+            line-height: 10px;
+            height: 15px;
+        }
+
         code:not([class]) {
             padding: 5px 5px;
             background: #fff;

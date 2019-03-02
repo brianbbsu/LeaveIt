@@ -17,10 +17,26 @@
       text-align: center;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between; 
+      justify-content: space-between;
     }
   }
   
+.navbar, .navbar-mobile {
+  .navbar-header {
+    font-size: 12pt;
+    font-weight: bold;
+  }
+}
+
+.theme-switch {
+  &:after {
+    content: "Dark Theme";
+  }
+  .dark-theme &:after {
+    content: "Light Theme";
+  }
+}
+
   .main {
     flex: 1 0 auto;
   }

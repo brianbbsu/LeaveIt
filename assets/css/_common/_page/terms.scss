@@ -35,8 +35,8 @@
     .archive-item-link {
         display: inline-block;
         text-decoration: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        /*overflow: hidden;
+        text-overflow: ellipsis;*/
         white-space: nowrap;
         max-width: 95%;
         &:hover {

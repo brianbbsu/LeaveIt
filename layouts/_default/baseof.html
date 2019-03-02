@@ -2,6 +2,13 @@
 <html lang="{{ .Site.LanguageCode }}">
   {{ partial "head.html" . }}
   <body class="">
+    <script>
+        const currentTheme = window.localStorage && window.localStorage.getItem('theme')
+        const isDark = currentTheme === 'dark'
+        if(isDark){
+          document.body.classList.add("dark-theme");
+        }
+    </script>
     <div class="wrapper">
         {{ partial "header" . }}
     	 <main class="main">
