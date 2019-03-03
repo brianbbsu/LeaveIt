@@ -11,13 +11,14 @@
         "name": "{{ .Site.Params.author }}"
     },
     "description": "{{ .Site.Params.description }}",
+    "keywords" : [{{ with .Site.Params.keywords }}{{ range . }}"{{ . }}", {{ end }}{{ end }}"{{ .Site.Title }}"]
 }
 </script>
 {{ end }} 
 {{ if .IsPage }}
 <script type="application/ld+json">
 {
- "@context" : "http://schema.org",
+    "@context" : "http://schema.org",
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
@@ -26,19 +27,41 @@
     "articleSection" : "{{ .Section }}",
     "name" : "{{ .Title }}",
     "headline" : "{{ .Title }}",
-    "description" : "{{ if .Description }}{{ .Description }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ end }}{{ end }}",
+    "description" : "{{ if .Description }}{{ .Description }}{{ else }}{{if .IsPage}}{{ replace .Summary "\\" "\\\\" |  safeHTML }}{{ end }}{{ end }}",
     "inLanguage" : "{{ .Site.LanguageCode }}",
-    "author" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
-    "creator" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
-    "publisher": "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
-    "accountablePerson" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
-    "copyrightHolder" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
+    "author" : {
+        "@type" : "Person",
+        "name" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}"
+    },
+    "creator" : {
+        "@type" : "Person",
+        "name" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}"
+    },
+    "publisher": {
+        "@type" : "Organization",
+        "name" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
+        "logo": {
+            "@type": "ImageObject",
+            "name": "Avatar",
+            "width": "60",
+            "height": "60",
+            "url": "{{ .Site.Params.avatar }}"
+        }
+    },
+    "accountablePerson" : {
+        "@type" : "Person",
+        "name" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}"
+    },
+    "copyrightHolder" : {
+        "@type" : "Person",
+        "name" : "{{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}"
+    },
     "copyrightYear" : "{{ .Date.Format "2006" }}",
     "datePublished": "{{ .Date }}",
-    "dateModified" : "{{ .Date }}",
+    "dateModified" : "{{ .Lastmod }}",
     "url" : "{{ .Permalink }}",
-    "wordCount" : "{{ .WordCount }}",
-    "keywords" : [ {{ if isset .Params "tags" }}{{ range .Params.tags }}"{{ . }}",{{ end }}{{ end }} {{with .Site.Title}}"{{ .}}"{{ end }}]
+    "keywords" : [ {{ if isset .Params "tags" }}{{ range .Params.tags }}"{{ . }}",{{ end }}{{ end }} {{with .Site.Title}}"{{ . }}"{{ end }}],
+    "image" : "{{ if isset .Params "featured_image" }}{{ .Params.featured_image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}"
 }
 </script>
 {{ end }}
